@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>微信收款</title>
+<style>
+body{background:#f7f7f7;font-family:微软雅黑;margin:0;padding:0;}
+.container{max-width:600px;margin:20px auto;background:white;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+.header{text-align:center;color:#07c160;padding-bottom:20px;border-bottom:1px solid #eee;}
+.header h2{margin:0;}
+.qrcode-box{text-align:center;padding:30px 0;}
+.qrcode-img{width:280px;height:280px;border:1px solid #ddd;padding:10px;background:white;}
+.tip{text-align:center;color:#666;font-size:14px;line-height:1.6;}
+.btn-area{text-align:center;padding:20px 0;}
+.btn{background:#07c160;color:white;border:none;padding:15px 30px;border-radius:8px;font-size:16px;width:100%;cursor:pointer;}
+.desc{background:#f9f9f9;border-radius:8px;padding:15px;margin-top:15px;font-size:14px;color:#333;}
+.desc label{color:#07c160;font-weight:bold;}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>🍁 请扫码支付</h2>
+    <p>支付后请刷新页面确认发货</p>
+  </div>
+
+  <div class="desc">
+    <div><label>订单金额：</label>¥<span id="amount"></span></div>
+    <div><label>订单号：</label><span id="orderId"></span></div>
+  </div>
+
+  <div class="qrcode-box">
+    <!-- 这里显示你的微信收款码 -->
+    <img src="https://picsum.photos/280/280" alt="你的微信收款码" class="qrcode-img" id="qrImg">
+  </div>
+
+  <div class="tip">
+    <p>📱 请使用微信扫码支付</p>
+    <p>⚠️ 付款请备注：<span id="orderNum"></span></p>
+  </div>
+
+  <div class="btn-area">
+    <button class="btn" onclick="markPaid()">我已付款，去查看订单</button>
+  </div>
+</div>
+
+<script>
+// 获取URL参数
+const params = new URLSearchParams(location.search);
+const total = params.get("total");
+const orderId = params.get("orderId");
+
+// 填充页面数据
+document.getElementById("amount").innerText = total;
+document.getElementById("orderId").innerText = orderId;
+document.getElementById("orderNum").innerText = "订单" + orderId.toString().slice(-6);
+
+// 替换为你的真实收款码
+// 方法：把码云图片链接替换成你上传的收款码图片URL
+document.getElementById("qrImg").src = "这里填你上传到码云的收款码图片原始链接";
+
+// 标记已支付（实际项目应改为调用后端接口，这里仅跳转）
+function markPaid() {
+  alert("支付已确认！即将跳转到订单页面");
+  location.href = "order.html";
+}
+</script>
+
+</body>
+</html>
